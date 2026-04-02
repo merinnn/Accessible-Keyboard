@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Generated Content - TypeAssist+</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="bar">
+    <h1><i class="fas fa-magic"></i> Generated Content</h1>
+    <div class="controls">
+      <button onclick="window.close()"><i class="fas fa-times"></i> Close</button>
+    </div>
+  </header>
+
+  <main>
+    <div class="card">
+      <section class="generated-content">
+        <h3>Generated Content</h3>
+        <div id="generatedContent" class="generated-display"></div>
+      </section>
+    </div>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+  <script>
+    // Load generated content from localStorage
+    const data = JSON.parse(localStorage.getItem('generatedData') || '{}');
+    const key = data.key;
+    const contentData = data.content;
+
+    const elGeneratedContent = document.getElementById('generatedContent');
+    elGeneratedContent.innerHTML = '';
+
+    if (key === '📊 Graph' && contentData.chart) {
+      const canvas = document.createElement('canvas');
+      elGeneratedContent.appendChild(canvas);
+      const ctx = canvas.getContext('2d');
+      const chartData = JSON.parse(contentData.chart);
+      new Chart(ctx, chartData);
+    } else if (key === '📐 Equation' && contentData.latex) {
+      elGeneratedContent.innerHTML = `\\[${contentData.latex}\\]`;
+      MathJax.typeset();
+    } else if (key === '📈 Diagram' && contentData.mermaid) {
+      const div = document.createElement('div');
+      div.className = 'mermaid';
+      div.textContent = contentData.mermaid;
+      elGeneratedContent.appendChild(div);
+      mermaid.init(undefined, div);
+    }
+  </script>
+</body>
+</html>

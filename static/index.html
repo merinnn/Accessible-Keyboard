@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>TypeAssist+</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="bar">
+    <h1><i class="fas fa-keyboard"></i> Accessible Keyboard</h1>
+    <div class="controls">
+      <button id="toggleLayout" aria-pressed="true"><i class="fas fa-exchange-alt"></i> Layout: Alphabetical</button>
+      <label class="inline">
+        <input type="checkbox" id="highContrast"> High Contrast
+      </label>
+      <button id="toggleDarkMode" aria-pressed="false"><i class="fas fa-moon"></i> Dark Mode</button>
+      <label class="inline">
+        Language
+        <select id="languageSelect">
+          <option value="english">English</option>
+          <option value="hindi">Hindi</option>
+          <option value="kannada">Kannada</option>
+          <option value="malayalam">Malayalam</option>
+          <option value="tamil">Tamil</option>
+        </select>
+      </label>
+      <label class="inline">
+        Assignment Mode
+        <select id="assignmentMode" onchange="changeAssignmentMode()">
+          <option value="none">No Assignment Mode</option>
+          <option value="essay">Essay Mode</option>
+          <option value="lab">Lab Report Mode</option>
+        </select>
+      </label>
+      <label class="inline">
+        Key size
+        <input type="range" id="keySize" min="48" max="96" value="64" />
+      </label>
+      <button id="undoBtn"><i class="fas fa-undo"></i> Undo</button>
+      <button id="redoBtn"><i class="fas fa-redo"></i> Redo</button>
+      <button id="clearText">Clear</button>
+      <a href="translator.html" class="btn">Translator</a>
+    </div>
+  </header>
+
+  <main>
+    <div class="card">
+      <section class="editor">
+        <textarea id="editor" rows="10" placeholder="Type here or use the mic…"></textarea>
+        <div id="wordCount" class="muted">Words: 0 | Characters: 0</div>
+        <div id="breakSuggestion" class="break-suggestion" style="display:none;">You seem fatigued. Take a 5-minute break!</div>
+        <div id="biometricStats" class="muted">Biometric Data: Avg Interval: -- ms | Avg Force: -- | Tremor Count: --</div>
+        <div id="actions" class="actions" aria-label="Context-aware actions"></div>
+        <div id="scaffolding" class="scaffolding" style="display:none;"></div>
+        <div class="export">
+          <button id="exportDocx">Export to Word (DOCX)</button>
+          <button id="exportPdf">Export to PDF</button>
+        </div>
+      </section>
+    </div>
+
+    <div class="card">
+      <section class="generated-content">
+        <h3>Generated Content</h3>
+        <p class="muted">Generated content will open in a new tab.</p>
+        <div id="generatedContent" class="generated-display"></div>
+        <button id="insertContent">Insert into Editor</button>
+        <button id="clearGenerated">Clear</button>
+      </section>
+    </div>
+
+    <div class="card">
+      <section class="keyboard" aria-label="On-screen keyboard">
+        <div id="keyboard" class="keys" role="group"></div>
+        <div class="row tools">
+          <button class="key wide" data-key="space" aria-label="Space">Space</button>
+          <button class="key" id="backspace" aria-label="Backspace">⌫</button>
+          <button class="key" id="enter" aria-label="Enter">⏎</button>
+          <button class="key" id="mic" aria-label="Microphone (voice typing)">🎤</button>
+        </div>
+        <p id="micStatus" class="muted" aria-live="polite"></p>
+      </section>
+    </div>
+  </main>
+
+  <footer class="bar muted" style="margin-top:40px; background:linear-gradient(135deg, var(--muted) 0%, var(--fg) 100%); color:var(--key);">
+    <div style="text-align:center; width:100%;">
+      <small><i class="fas fa-heart" style="color:var(--accent);"></i> Accessible Keyboard - Making typing easier for everyone</small>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
